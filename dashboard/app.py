@@ -21,11 +21,17 @@ def load_credentials():
         # Set motherduck api key
         motherduck_key = os.environ.get('MOTHERDUCK_KEY')
 
+        # Set Dune api key
+        dune_key = os.environ.get('DUNE_KEY')
+
 
         if not motherduck_key:
             raise ValueError("MOTHERDUCK_KEY not found in environment variables")
         
-        return motherduck_key
+        if not dune_key:
+            raise ValueError("DUNE_KEY not found in environment variables")
+        
+        return motherduck_key, dune_key
     except Exception as e:
         print(f"Error loading credentials: {str(e)}")
 
@@ -45,6 +51,25 @@ def motherduck_connect(motherduck_key, database):
     except Exception as e:
         print(f"Error connecting to MotherDuck: {str(e)}")
         return None
+    
+    # Start Dune Client
+def create_dune_client(dune_key):
+        try:
+
+            # Attempt to connect to Dune
+            dune = DuneClient(dune_key)
+
+            print(f"Successfully connected to Dune")
+
+        except Exception as e:
+            print(f"Error connecting to Dune: {str(e)}")
+
+            return dune
+
+
+
+# Run Dune Query and save output to pandas dataframe
+    
 
 
 database = "sample_data"
