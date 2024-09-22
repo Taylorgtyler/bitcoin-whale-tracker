@@ -73,12 +73,7 @@ pre {
 }
 
 .text-column {
-	display: flex;
-	max-width: 48rem;
-	flex: 0.6;
-	flex-direction: column;
-	justify-content: center;
-	margin: 0 auto;
+	@apply mx-auto flex max-w-3xl flex-[0.6] flex-col justify-center;
 }
 
 input,
