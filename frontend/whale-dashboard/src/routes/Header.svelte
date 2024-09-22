@@ -40,75 +40,61 @@
 	}
 
 	.corner {
-		width: 3em;
-		height: 3em;
+		@apply w-12;
+		@appy h-12;
 	}
 
 	.corner a {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		height: 100%;
+		@apply flex items-center;
+		@apply justify-center;
+		@apply w-full;
+		@apply h-full;
 	}
 
 	.corner img {
-		width: 2em;
-		height: 2em;
-		object-fit: contain;
+		@apply w-8;
+		@apply h-8;
+		@apply object-contain;
 	}
 
 	nav {
-		display: flex;
-		justify-content: center;
-		--background: rgba(255, 255, 255, 0.7);
+		@apply flex justify-center;
 	}
 
 	ul {
-		position: relative;
-		padding: 0;
-		margin: 0;
-		height: 3em;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		list-style: none;
-		background: var(--background);
-		background-size: contain;
+		@apply relative;
+		@apply p-0;
+		@apply m-0;
+		@apply h-12;
+		@apply flex;
+		@apply justify-center;
+		@apply items-center;
+		@apply list-none;
+		@apply bg-[var(--background)];
+		@apply bg-contain;
 	}
 
 	li {
-		position: relative;
-		height: 100%;
+		@apply relative h-full;
 	}
 
+/* Styles for li[aria-current='page']::before */
 	li[aria-current='page']::before {
 		--size: 6px;
 		content: '';
-		width: 0;
-		height: 0;
-		position: absolute;
-		top: 0;
+		@apply w-0 h-0 absolute top-0;
 		left: calc(50% - var(--size));
 		border: var(--size) solid transparent;
 		border-top: var(--size) solid var(--color-theme-1);
 	}
 
+/* Styles for nav a */
 	nav a {
-		display: flex;
-		height: 100%;
-		align-items: center;
-		padding: 0 0.5rem;
-		color: var(--color-text);
-		font-weight: 700;
-		font-size: 0.8rem;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		text-decoration: none;
-		transition: color 0.2s linear;
+		@apply flex h-full items-center px-2 text-[var(--color-text)] font-bold text-xs uppercase tracking-wider no-underline transition-colors duration-200;
 	}
 
+/* Styles for a:hover */
 	a:hover {
-		color: var(--color-theme-1);
+		@apply text-[var(--color-theme-1)];
 	}
 </style>
