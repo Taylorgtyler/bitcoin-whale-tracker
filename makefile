@@ -34,4 +34,9 @@ backend-commit-all:
 	git add backend/data_access
 	git commit -m "$(message)"
 
+backend-run:
+	@go run backend/data_access/cmd/api/main.go
+
+backend-build:
+	@go build -o main backend/data/data_access/cmd/main.go
 # Pipeline
