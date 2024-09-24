@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount, onDestroy } from 'svelte';
 	import { Chart } from 'svelte-echarts';
 	import { init, use } from 'echarts/core';
 	import { BarChart, LineChart, PieChart } from 'echarts/charts';
@@ -10,6 +11,7 @@
 	} from 'echarts/components';
 	import { CanvasRenderer } from 'echarts/renderers';
 	import type { EChartsOption } from 'echarts';
+	import type { ChartData } from '$lib/types';
 
 	// Register the required components
 	use([
@@ -23,47 +25,93 @@
 		CanvasRenderer
 	]);
 
-	interface ChartData {
-		xAxis: string[];
-		series: {
-			name: string;
-			type: 'bar' | 'line' | 'pie';
-			data: number[];
-		}[];
-	}
-
 	export let title: string;
 	export let data: ChartData;
 	export let width = '100%';
-	export let height = '400px';
+	export let height = '100%';
 
 	let options: EChartsOption;
+	let chartInstance: echarts.ECharts | null = null;
+	let chartContainer: HTMLElement;
+	let isLoading = true;
+	let error: string | null = null;
 
 	$: updateOptions(title, data);
 
 	function updateOptions(chartTitle: string, chartData: ChartData) {
-		options = {
-			title: {
-				text: chartTitle
-			},
-			tooltip: {
-				trigger: 'axis'
-			},
-			legend: {
-				data: chartData.series.map((s) => s.name)
-			},
-			xAxis: {
-				type: 'category',
-				data: chartData.xAxis
-			},
-			yAxis: {
-				type: 'value'
-			},
-			series: chartData.series
-		};
+		isLoading = true;
+		error = null;
+
+		try {
+			if (!chartData || !chartData.xAxis || !chartData.series) {
+				throw new Error('Invalid chart data');
+			}
+
+			options = {
+				title: {
+					text: chartTitle
+				},
+				tooltip: {
+					trigger: 'axis'
+				},
+				legend: {
+					data: chartData.series.map((s) => s.name),
+					orient: 'horizontal',
+					bottom: 0
+				},
+				xAxis: {
+					type: 'category',
+					data: chartData.xAxis
+				},
+				yAxis: {
+					type: 'value'
+				},
+				series: chartData.series
+			};
+
+			isLoading = false;
+		} catch (e) {
+			error = e instanceof Error ? e.message : 'An error occurred';
+			isLoading = false;
+		}
 	}
+
+	onMount(() => {
+		const resizeObserver = new ResizeObserver(() => {
+			if (chartInstance) {
+				chartInstance.resize();
+			}
+		});
+
+		resizeObserver.observe(chartContainer);
+
+		return () => {
+			resizeObserver.disconnect();
+		};
+	});
+
+	function handleChartInit(e: CustomEvent<echarts.ECharts>) {
+		chartInstance = e.detail;
+	}
+
+	onDestroy(() => {
+		if (chartInstance) {
+			chartInstance.dispose();
+		}
+	});
 </script>
 
-<div style="width: {width}; height: {height};">
-	<Chart {init} {options} />
+<div bind:this={chartContainer} class="chart-container" style="width: {width}; height: {height};">
+	{#if isLoading}
+		<div class="loading-overlay">
+			<span class="loading-spinner"></span>
+			<p>Loading chart...</p>
+		</div>
+	{:else if error}
+		<div class="error-message">
+			<p>Error: {error}</p>
+		</div>
+	{:else}
+		<Chart {init} {options} on:init={handleChartInit} />
+	{/if}
 </div>
