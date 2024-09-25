@@ -1,5 +1,11 @@
 # Pipeline
 
-This is our data pipeline that moves data from dune analytics to our motherduck instance.
+This is repo for the data pipelines that load data from dune to motherduck and transforms it for the dashboard.
 
-This will move data from dune using a saved query to our duckdb table.
+# Load
+
+Uses dlt jobs to move data from the various dune queries to Motherduck
+
+# Transform
+
+Uses dbt to transform data in motherduck

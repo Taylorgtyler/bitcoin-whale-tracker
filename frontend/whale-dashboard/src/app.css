@@ -1,0 +1,103 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import '@fontsource/fira-mono';
+
+html {
+	@apply bg-zinc-50;
+}
+
+header {
+	@apply flex justify-between;
+	@apply bg-white;
+	@apply shadow-md;
+}
+
+.corner {
+	@apply w-12;
+	@appy h-12;
+}
+
+.corner a {
+	@apply flex items-center;
+	@apply justify-center;
+	@apply w-full;
+	@apply h-full;
+}
+
+.corner img {
+	@apply w-8;
+	@apply h-8;
+	@apply object-contain;
+}
+
+nav {
+	@apply flex justify-center;
+}
+
+ul {
+	@apply relative;
+	@apply p-0;
+	@apply m-0;
+	@apply h-12;
+	@apply flex;
+	@apply justify-center;
+	@apply items-center;
+	@apply list-none;
+	@apply bg-[var(--background)];
+	@apply bg-contain;
+}
+
+li {
+	@apply relative h-full;
+}
+
+/* Styles for li[aria-current='page']::before */
+li[aria-current='page']::before {
+	--size: 6px;
+	content: '';
+	@apply absolute top-0 h-0 w-0;
+	left: calc(50% - var(--size));
+	border: var(--size) solid transparent;
+	border-top: var(--size) solid var(--color-theme-1);
+}
+
+/* Styles for nav a */
+nav a {
+	@apply flex h-full items-center px-2 text-xs font-bold uppercase tracking-wider text-[var(--color-text)] no-underline transition-colors duration-200;
+}
+
+/* Styles for a:hover */
+a:hover {
+	@apply text-[var(--color-theme-1)];
+}
+
+.loading-overlay,
+.error-message {
+	@apply absolute inset-0 flex flex-col items-center justify-center bg-gray-100 bg-opacity-75;
+}
+
+.loading-spinner {
+	@apply mb-2 h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent;
+}
+
+.error-message {
+	@apply font-semibold text-red-500;
+}
+
+.chart-container {
+	@apply relative flex h-full min-h-[400px] w-full items-center justify-center;
+}
+
+.dashboard {
+	@apply grid grid-cols-1 gap-4 p-6 md:grid-cols-2 lg:grid-cols-3;
+}
+
+.chart-container {
+	@apply rounded-lg bg-white p-4 shadow-lg;
+	min-height: 350px;
+}
+
+h2 {
+	@apply mb-2 text-lg font-bold;
+}

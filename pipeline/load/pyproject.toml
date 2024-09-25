@@ -1,19 +1,16 @@
 [tool.poetry]
-name = "bitcoin-whale-tracker"
+name = "load"
 version = "0.1.0"
-description = "Data dashboard tracking whale trading on the bitcoin blockchain"
+description = "Data load jobs for bitcoin data"
 authors = ["Taylorgtyler <taylorgtyler@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.12,<3.13"
-polars = "^1.7.1"
-dash = "^2.18.1"
-pandas = "^2.2.3"
-duckdb = "^1.1.0"
+polars = "^1.8.1"
 dune-client = "^1.7.5"
-python-dotenv = "^1.0.1"
-dlt = "^1.0.0"
+pandas = "^2.2.3"
+pyarrow = "^17.0.0"
 
 
 [build-system]
