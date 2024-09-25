@@ -8,6 +8,9 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.12,<3.13"
 polars = "^1.8.1"
+dune-client = "^1.7.5"
+pandas = "^2.2.3"
+pyarrow = "^17.0.0"
 
 
 [build-system]
