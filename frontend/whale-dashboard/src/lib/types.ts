@@ -13,3 +13,14 @@ export interface ChartProps {
 	width?: string;
 	height?: string;
 }
+
+export interface CryptoData {
+	id: string;
+	size: number;
+	inputValue: number;
+	outputValue: number;
+	fee: number;
+	isCoinbase: boolean;
+	block_hash: string;
+	block_time: string;
+}
