@@ -11,8 +11,8 @@ def main():
         dune = Dune()
         motherduck = MotherDuck("my_db")
 
-        # Latest Transactions query
-        query_id = 4075803
+        # Bitcoin Blocks
+        query_id = 4104464
         logging.info(f"Executing Dune query with ID: {query_id}")
         results_df = dune.run_query_dataframe(query_id)
 
@@ -25,7 +25,7 @@ def main():
         polars_df = pandas_to_polars(results_df)
         logging.info("Converted Pandas DataFrame to Polars DataFrame")
 
-        table_name = "last_10000_bitcoin_transactions"
+        table_name = "bitcoin_blocks"
         logging.info(f"Writing data to MotherDuck table: {table_name}")
         motherduck.write_dataframe(polars_df, table_name)
 
