@@ -44,7 +44,8 @@ func (ctx *DBContext) ExecuteQuery(query string, args ...interface{}) ([]map[str
 
 func (ctx *DBContext) GetRecentWhaleTransactions(limit int) ([]map[string]interface{}, error) {
 	query := `
-		select * from main.last_10000_bitcoin_transactions
+		select id, size, input_value, output_value, fee, is_coinbase, block_hash, block_time 
+		from main.last_10000_bitcoin_transactions
 		order by block_time DESC
 		LIMIT ?
 	`
@@ -54,7 +55,8 @@ func (ctx *DBContext) GetRecentWhaleTransactions(limit int) ([]map[string]interf
 // Get largest whale transaction this week
 func (ctx *DBContext) GetLargestWhaleTransactionThisWeek() (map[string]interface{}, error) {
     query := `
-        SELECT *
+        SELECT 
+		id, size, input_value, output_value, fee, is_coinbase, block_hash, block_time
         FROM main.last_10000_bitcoin_transactions
         where strptime(block_time, '%Y-%m-%d %H:%M:%S.%f UTC') >= date_trunc('week', current_date)
         order by input_value desc
