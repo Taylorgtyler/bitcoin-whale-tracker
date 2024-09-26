@@ -17,10 +17,21 @@ export interface ChartProps {
 export interface CryptoData {
 	id: string;
 	size: number;
-	inputValue: number;
-	outputValue: number;
+	input_value: number;
+	output_value: number;
 	fee: number;
-	isCoinbase: boolean;
+	is_coinbase: boolean;
 	block_hash: string;
 	block_time: string;
+}
+
+export interface TableDataItem {
+	[key: string]: string | number | boolean | null | undefined;
+}
+
+export type TableData = TableDataItem[];
+
+export interface PageData {
+	transactions: CryptoData[];
+	error?: string;
 }
