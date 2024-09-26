@@ -40,7 +40,7 @@ func (ctx *DBContext) ExecuteQuery(query string, args ...interface{}) ([]map[str
 	return result, nil
 }
 
-// Add more specific query methods as needed, for example:
+// Get most recent transaction:
 
 func (ctx *DBContext) GetRecentWhaleTransactions(limit int) ([]map[string]interface{}, error) {
 	query := `

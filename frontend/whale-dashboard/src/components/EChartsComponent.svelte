@@ -29,6 +29,7 @@
 	export let data: ChartData;
 	export let width = '100%';
 	export let height = '100%';
+	export let colors: string[] = [];
 
 	let options: EChartsOption;
 	let chartInstance: echarts.ECharts | null = null;
@@ -36,9 +37,9 @@
 	let isLoading = true;
 	let error: string | null = null;
 
-	$: updateOptions(title, data);
+	$: updateOptions(title, data, colors);
 
-	function updateOptions(chartTitle: string, chartData: ChartData) {
+	function updateOptions(chartTitle: string, chartData: ChartData, chartColors: string[]) {
 		isLoading = true;
 		error = null;
 
@@ -48,6 +49,7 @@
 			}
 
 			options = {
+				color: chartColors.length > 0 ? chartColors : undefined,
 				title: {
 					text: chartTitle
 				},

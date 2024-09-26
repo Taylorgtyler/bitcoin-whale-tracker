@@ -45,7 +45,7 @@
 
 <div class="dashboard">
 	<div class="col-span-2">
-		<EChartsComponent title="Weekly Sales" data={barChartData} />
+		<EChartsComponent title="Weekly Sales" data={barChartData} colors={['#ff5733']} />
 	</div>
 	<div class="col-span-1">
 		<EChartsComponent title="Sales by Month" data={lineChartData} />
